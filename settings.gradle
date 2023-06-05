@@ -1,0 +1,7 @@
+//rootProject.name = 'bookshop_microservice'
+include 'discovery_server'
+include 'api_gateway'
+include 'cloud_config'
+include 'authentication_service'
+include 'book_service'
+include 'book_inventory'
