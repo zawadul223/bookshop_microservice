@@ -26,15 +26,19 @@ public class SecurityConfig {
             new AntPathRequestMatcher("/user/login"),
 
     };
+
+    RequestMatcher[] all1 = new RequestMatcher[] {
+            new AntPathRequestMatcher("/hello")
+    };
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
+        return http
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
                 .requestMatchers(all)
                 .permitAll()
-//                .requestMatchers("/book/id/{id}","book/all","book/author/{authorName}", "/book/{author}/{bookName}").hasAnyAuthority("ADMIN","USER")
+                .requestMatchers(all1).hasAuthority("ADMIN")
 //                .requestMatchers("/book/create","/book/delete","/book/update").hasAuthority("ADMIN")
                 .anyRequest()
                 .authenticated()
@@ -44,7 +48,8 @@ public class SecurityConfig {
                 .and()
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .build()
         ;
-        return http.build();
+        //return http.build();
     }
 }

@@ -36,9 +36,9 @@ public class UserServiceImpl implements UserService {
                 .role(Objects.equals(userRequest.getRole(), "ADMIN") ? Role.ADMIN:Role.USER)
                 .build();
         userRepository.save(userEntity);
-//        AuthenticationResponse authRes = AuthenticationResponse.builder()
-//                .token(jwtService.generateToken(userEntity))
-//                .build();
+        AuthenticationResponse authRes = AuthenticationResponse.builder()
+                .token(jwtService.generateToken(userEntity))
+                .build();
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
     public AuthenticationResponse login(AuthenticationRequest authenticationRequest) {
